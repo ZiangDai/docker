@@ -1,8 +1,8 @@
 name: 'odoo-local'
 services:
-  db:
-    image: postgres:14.15
-    container_name: odoo-database
+  postgres:
+    image: ${POSTGRES_IMAGE}
+    container_name: ${POSTGRES_CONTAINER_NAME}
     restart: no
     volumes:
       - ./postgresql/logs:/var/log/postgresql
@@ -30,9 +30,9 @@ services:
     ports:
       - ${POSTGRES_PORT}:5432
 
-  app:
-    image: odoo:17.0
-    container_name: odoo-app
+  odoo:
+    image: ${ODOO_IMAGE}
+    container_name: ${ODOO_CONTAINER_NAME}
     restart: no
     volumes:
       - ./odoo/extra-addons:/mnt/extra-addons
@@ -47,6 +47,7 @@ services:
       PASSWORD: ${POSTGRES_PASSWORD}
       USER: ${POSTGRES_USER}
       PORT: ${POSTGRES_PORT}
+      HOST: postgres
     deploy:
       resources:
         limits:
@@ -61,9 +62,9 @@ services:
         max_attempts: 3
         window: 120s
     depends_on:
-      - db
+      - postgres
     links:
-      - db
+      - postgres
     ports:
       - ${ODOO_XMLRPC_PORT}:8069
       - ${ODOO_LONG_POLLING_PORT}:8072
