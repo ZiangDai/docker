@@ -33,9 +33,10 @@ services:
     container_name: ${ODOO_CONTAINER_NAME}
     restart: no
     volumes:
-      - ./odoo/extra-addons:/mnt/extra-addons
+      - ./odoo/extra-addons:/mnt/extra-addons:ro
+      - ./odoo/enterprise-addons:/mnt/enterprise-addons:ro
       - ./odoo/logs:/var/log/odoo
-      - ./odoo/config:/etc/odoo
+      - ./odoo/config:/etc/odoo:ro
     env_file:
       - .env
     environment:
