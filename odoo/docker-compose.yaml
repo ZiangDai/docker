@@ -6,6 +6,7 @@ services:
     restart: no
     volumes:
       - ./postgresql/logs:/var/log/postgresql
+        ##- ./postgresql/init:/docker-entrypoint-initdb.d
     env_file:
       - .env
     environment:
@@ -36,7 +37,7 @@ services:
       - ./odoo/extra-addons:/mnt/extra-addons:ro
       - ./odoo/enterprise-addons:/mnt/enterprise-addons:ro
       - ./odoo/logs:/var/log/odoo
-      - ./odoo/config:/etc/odoo:ro
+      - ./odoo/config:/etc/odoo
     env_file:
       - .env
     environment:
