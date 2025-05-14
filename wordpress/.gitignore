@@ -1,0 +1,5 @@
+wordpress/plugins/
+wordpress/themes/
+wordpress/wp-content/
+node_modules/
+package-lock.json
